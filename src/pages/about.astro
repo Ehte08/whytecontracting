@@ -28,13 +28,12 @@ import Button from '../components/Button.astro';
   <section class="intro" aria-labelledby="intro-heading">
     <div class="container intro-inner">
       <div class="intro-text">
-        <p class="label label--dark">Who We Are</p>
         <h2 id="intro-heading">Whyte Contracting LLC</h2>
         <p>
           Founded in 2022 and headquartered in Copiague, NY, Whyte Contracting LLC specializes
           in heavy-haul dump trucking and residential construction across Long Island. We serve
           homeowners, contractors, and developers who demand quality, punctuality, and
-          straight talk — no runaround.
+          straight talk, no runaround.
         </p>
         <p>
           Whether we're hauling materials to a job site, clearing debris, or delivering a
@@ -59,27 +58,38 @@ import Button from '../components/Button.astro';
     </div>
   </section>
 
+  <!-- ─── PHOTO STRIP ─── -->
+  <div class="photo-strip" role="presentation">
+    <img
+      src="https://images.unsplash.com/photo-1541888946425-d81bb19240f5?auto=format&fit=crop&w=2000&q=80"
+      alt="Construction crew working on a Long Island job site"
+      loading="lazy"
+      width="2000"
+      height="640"
+    />
+  </div>
+
   <!-- ─── MISSION & VISION ─── -->
   <section class="mv" aria-labelledby="mv-heading">
     <div class="container">
-      <p class="label label--dark" id="mv-heading">What drives us</p>
+      <header class="section-header mv-header">
+        <h2 id="mv-heading">What drives us</h2>
+      </header>
       <div class="mv-grid">
 
         <article class="mv-card" aria-labelledby="mission-heading">
-          <span class="mv-index" aria-hidden="true">01</span>
           <h3 id="mission-heading">Mission</h3>
           <p>
             To provide quality services to our clients that will help their companies
-            prosper and grow — delivered with honesty, efficiency, and care.
+            prosper and grow: delivered with honesty, efficiency, and care.
           </p>
         </article>
 
         <article class="mv-card" aria-labelledby="vision-heading">
-          <span class="mv-index" aria-hidden="true">02</span>
           <h3 id="vision-heading">Vision</h3>
           <p>
             To be the most trusted and reliable heavy-haul transportation provider in
-            the region — consistently delivering efficient and safe dumping services and
+            the region, consistently delivering efficient and safe dumping services and
             residential remodeling, prioritizing customer satisfaction, and contributing
             to the success of construction projects through innovative solutions and a
             commitment to environmental responsibility.
@@ -94,25 +104,21 @@ import Button from '../components/Button.astro';
   <section class="values" aria-labelledby="values-heading">
     <div class="container">
       <header class="section-header">
-        <p class="label label--dark">Our Values</p>
         <h2 id="values-heading">What we stand for</h2>
       </header>
       <div class="values-grid">
 
         <article class="value-tile" aria-label="Integrity">
-          <span class="value-num" aria-hidden="true">01</span>
           <h3 class="value-name">Integrity</h3>
           <p class="value-desc">We say what we mean and do what we say — every time, no exceptions.</p>
         </article>
 
         <article class="value-tile" aria-label="Loyalty">
-          <span class="value-num" aria-hidden="true">02</span>
           <h3 class="value-name">Loyalty</h3>
           <p class="value-desc">Our clients and crews can count on us to show up and follow through.</p>
         </article>
 
         <article class="value-tile" aria-label="Respect">
-          <span class="value-num" aria-hidden="true">03</span>
           <h3 class="value-name">Respect</h3>
           <p class="value-desc">We treat every property, every client, and every job site with care.</p>
         </article>
@@ -124,7 +130,7 @@ import Button from '../components/Button.astro';
   <!-- ─── CLOSING CTA ─── -->
   <section class="cta" aria-labelledby="cta-heading">
     <div class="container cta-inner">
-      <p class="label label--green">Work With Us</p>
+      <p class="label label--accent">Work With Us</p>
       <h2 id="cta-heading" class="cta-headline">Ready to get to work?</h2>
       <p class="cta-sub">Reach out and we'll get back to you the same day.</p>
       <Button href="/contact" ariaLabel="Go to contact page">Get in Touch</Button>
@@ -150,8 +156,9 @@ import Button from '../components/Button.astro';
     margin-bottom: var(--space-sm);
   }
 
-  .label--dark  { color: var(--c-muted); }
-  .label--green { color: var(--c-accent-on-dark); }
+  .label--dark   { color: var(--c-muted); }
+  .label--green  { color: var(--c-accent-on-dark); }
+  .label--accent { color: var(--c-accent); }
 
   /* ─── Page Header ─── */
   .page-header {
@@ -225,14 +232,14 @@ import Button from '../components/Button.astro';
     display: flex;
     flex-direction: column;
     gap: 0.25rem;
-    border-left: 3px solid var(--c-accent);
-    padding-left: var(--space-lg);
+    padding-top: var(--space-sm);
+    border-top: 2px solid var(--c-hairline);
   }
 
   .stat-number {
     font-size: 2rem;
     font-weight: 700;
-    color: var(--c-ink);
+    color: var(--c-accent);
     letter-spacing: -0.03em;
     line-height: 1;
   }
@@ -248,12 +255,12 @@ import Button from '../components/Button.astro';
   /* ─── Mission / Vision ─── */
   .mv {
     padding: var(--space-section) 0;
-    background: oklch(94% 0.01 90);
+    background: var(--c-canvas-tinted);
     border-top: 1px solid var(--c-hairline);
     border-bottom: 1px solid var(--c-hairline);
   }
 
-  .mv > .container > .label {
+  .mv > .container > .section-header {
     margin-bottom: clamp(2rem, 4vw, 3.5rem);
   }
 
@@ -362,10 +369,24 @@ import Button from '../components/Button.astro';
     max-width: 30ch;
   }
 
+  /* ─── Photo Strip ─── */
+  .photo-strip {
+    height: clamp(220px, 25vw, 440px);
+    overflow: hidden;
+  }
+
+  .photo-strip img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center 60%;
+  }
+
   /* ─── Closing CTA ─── */
   .cta {
     padding: var(--space-section) 0;
-    background: var(--c-dark);
+    background: var(--c-canvas);
+    border-top: 3px solid var(--c-accent);
   }
 
   .cta-inner {
@@ -377,14 +398,14 @@ import Button from '../components/Button.astro';
     font-weight: 700;
     line-height: 1.05;
     letter-spacing: -0.025em;
-    color: var(--c-on-dark);
+    color: var(--c-ink);
     margin-bottom: var(--space-md);
     margin-top: var(--space-xs);
   }
 
   .cta-sub {
     font-size: 1rem;
-    color: var(--c-on-dark-soft);
+    color: var(--c-body);
     margin-bottom: var(--space-2xl);
     max-width: 42ch;
   }

@@ -11,7 +11,7 @@ const links = [
 ];
 ---
 
-<header class="nav" id="nav" role="banner">
+<header class="nav" id="nav" role="banner" transition:name="site-nav" transition:persist>
   <div class="nav-inner">
     <a href="/" class="logo" aria-label="Whyte Contracting — home">
       <span class="logo-name">Whyte</span>
@@ -35,21 +35,39 @@ const links = [
 </header>
 
 <script>
+  function updateActiveLink() {
+    const path = window.location.pathname;
+    document.querySelectorAll<HTMLAnchorElement>('#nav .nav-link').forEach(link => {
+      const href = link.getAttribute('href')!;
+      const active = href === '/' ? path === '/' : path.startsWith(href);
+      link.classList.toggle('is-active', active);
+      if (active) link.setAttribute('aria-current', 'page');
+      else link.removeAttribute('aria-current');
+    });
+  }
+
+  // Apply scroll state immediately without animation to avoid flash
+  function snapScrollState() {
+    const nav = document.getElementById('nav');
+    if (!nav) return;
+    nav.style.transition = 'none';
+    nav.classList.toggle('is-solid', window.scrollY > 10);
+    void nav.offsetHeight; // force reflow before re-enabling transition
+    nav.style.transition = '';
+  }
+
+  document.addEventListener('astro:page-load', updateActiveLink);
+  // Re-snap after each view-transition swap (sentinel was lost with old approach)
+  document.addEventListener('astro:after-swap', snapScrollState);
+
   const nav = document.getElementById('nav')!;
-
-  const scrollObserver = new IntersectionObserver(
-    ([entry]) => nav.classList.toggle('is-solid', entry.boundingClientRect.top < 0),
-    { threshold: [0], rootMargin: '-1px 0px 0px 0px' }
-  );
-
-  /* Observe a 1px sentinel at the very top of the page */
-  const sentinel = document.createElement('div');
-  sentinel.style.cssText = 'position:absolute;top:0;left:0;width:1px;height:1px;pointer-events:none';
-  document.body.prepend(sentinel);
-  scrollObserver.observe(sentinel);
-
-  /* On non-hero pages the nav starts solid immediately */
-  if (window.scrollY > 10) nav.classList.add('is-solid');
+  if (!nav.dataset.scrollInit) {
+    nav.dataset.scrollInit = '1';
+    snapScrollState();
+    window.addEventListener('scroll', () => {
+      nav.classList.toggle('is-solid', window.scrollY > 10);
+    }, { passive: true });
+  }
 </script>
 
 <style>
@@ -111,7 +129,10 @@ const links = [
     color: var(--c-on-dark-soft);
     letter-spacing: 0.05em;
     text-transform: uppercase;
-    padding: 0.35rem 0.65rem;
+    padding: 0.6rem 0.65rem;
+    min-height: 44px;
+    display: inline-flex;
+    align-items: center;
     position: relative;
     transition: color 0.15s ease-out;
   }
@@ -119,7 +140,7 @@ const links = [
   .nav-link::after {
     content: '';
     position: absolute;
-    bottom: -2px;
+    bottom: 4px;
     left: 0.65rem;
     right: 0.65rem;
     height: 2px;
@@ -152,7 +173,10 @@ const links = [
     text-transform: uppercase;
     color: var(--c-on-dark);
     background: var(--c-accent);
-    padding: 0.5rem 1.1rem;
+    padding: 0.75rem 1.1rem;
+    min-height: 44px;
+    display: inline-flex;
+    align-items: center;
     flex-shrink: 0;
     transition: background 0.2s ease-out, transform 0.2s ease-out;
   }
@@ -160,6 +184,11 @@ const links = [
   .nav-call:hover {
     background: var(--c-accent-hover);
     transform: scale(1.03);
+  }
+
+  .nav-call:focus-visible {
+    outline: 2px solid var(--c-accent-on-dark);
+    outline-offset: 3px;
   }
 
   @media (max-width: 680px) {
@@ -178,7 +207,7 @@ const links = [
 
     .nav-link {
       font-size: 0.75rem;
-      padding: 0.25rem 0.5rem;
+      padding: 0.6rem 0.5rem;
     }
 
     .nav-call {

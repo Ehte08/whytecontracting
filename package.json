@@ -12,6 +12,7 @@
   "license": "ISC",
   "description": "",
   "dependencies": {
+    "@fontsource/overpass": "^5.2.8",
     "astro": "^4.16.19",
     "motion": "^12.40.0"
   }

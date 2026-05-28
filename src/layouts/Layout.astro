@@ -1,5 +1,7 @@
 ---
 import { ViewTransitions } from 'astro:transitions';
+import '@fontsource/overpass/400.css';
+import '@fontsource/overpass/700.css';
 const { title = 'Whyte Contracting', description = 'Home remodeling and dump trucking services you can rely on.' } = Astro.props;
 ---
 
@@ -10,34 +12,35 @@ const { title = 'Whyte Contracting', description = 'Home remodeling and dump tru
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="description" content={description} />
     <title>{title}</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Overpass:wght@400;700&display=swap"
-      rel="stylesheet"
-    />
     <ViewTransitions />
+    <slot name="head" />
   </head>
   <body>
-    <slot />
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+    <main id="main-content">
+      <slot />
+    </main>
   </body>
 </html>
 
 <style is:global>
   /* ─── Design Tokens ─── */
   :root {
-    --c-dark:          oklch(17% 0.025 250);
-    --c-dark-elevated: oklch(22% 0.02 250);
-    --c-canvas:        oklch(97% 0.008 90);
-    --c-accent:        oklch(35% 0.09 155);
-    --c-accent-hover:  oklch(30% 0.08 155);
+    --c-dark:           oklch(17% 0.025 250);
+    --c-dark-elevated:  oklch(22% 0.02 250);
+    --c-canvas:         oklch(97% 0.008 90);
+    --c-canvas-tinted:  oklch(94% 0.01 90);
+    --c-accent:         oklch(35% 0.09 155);
+    --c-accent-hover:   oklch(30% 0.08 155);
     --c-accent-on-dark: oklch(62% 0.14 155);
-    --c-ink:           oklch(18% 0.015 250);
-    --c-body:          oklch(38% 0.012 250);
-    --c-muted:         oklch(58% 0.01 250);
-    --c-hairline:      oklch(88% 0.006 90);
-    --c-on-dark:       oklch(94% 0.006 90);
-    --c-on-dark-soft:  oklch(72% 0.008 90);
+    --c-ink:            oklch(18% 0.015 250);
+    --c-body:           oklch(38% 0.012 250);
+    --c-muted:          oklch(44% 0.012 250);
+    --c-hairline:       oklch(88% 0.006 90);
+    --c-on-dark:        oklch(94% 0.006 90);
+    --c-on-dark-soft:   oklch(72% 0.008 90);
+    --c-error:          oklch(50% 0.18 25);
+    --c-overlay:        oklch(100% 0 0 / 0.06);
 
     --font: 'Overpass', system-ui, -apple-system, sans-serif;
 
@@ -89,5 +92,26 @@ const { title = 'Whyte Contracting', description = 'Home remodeling and dump tru
 
   button {
     font-family: inherit;
+  }
+
+  /* ─── Skip Link ─── */
+  .skip-link {
+    position: absolute;
+    top: -100%;
+    left: var(--gutter, 1.5rem);
+    z-index: 200;
+    padding: 0.6rem 1.25rem;
+    background: var(--c-accent);
+    color: var(--c-on-dark);
+    font-size: 0.875rem;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    transition: top 0.1s;
+  }
+
+  .skip-link:focus {
+    top: 0.75rem;
+    outline: 2px solid var(--c-on-dark);
+    outline-offset: 2px;
   }
 </style>

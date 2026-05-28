@@ -9,6 +9,13 @@ const phoneHref = 'tel:6319330772';
 ---
 
 <Layout title="Whyte Contracting — Geared for Success">
+  <link
+    slot="head"
+    rel="preload"
+    as="image"
+    href="https://images.unsplash.com/photo-1504307651254-35680f356dfd?auto=format&fit=crop&w=2000&q=80"
+    fetchpriority="high"
+  />
 
   <Nav currentPath={Astro.url.pathname} />
 
@@ -32,7 +39,6 @@ const phoneHref = 'tel:6319330772';
     <div class="container">
 
       <header class="section-header">
-        <p class="label label--dark">Our Services</p>
         <h2 id="services-heading">What we do</h2>
       </header>
 
@@ -77,7 +83,6 @@ const phoneHref = 'tel:6319330772';
   <!-- ─── CONTACT CTA ─── -->
   <section class="contact" id="contact" aria-labelledby="contact-heading">
     <div class="container contact-inner">
-      <p class="label label--green">Get In Touch</p>
       <h2 id="contact-heading" class="contact-headline">Ready to get started?</h2>
       <p class="contact-sub">Call or fill out our contact form and we'll get back to you the same day.</p>
       <div class="contact-actions">

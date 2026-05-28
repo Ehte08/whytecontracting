@@ -8,6 +8,7 @@ import Button from './Button.astro';
   method="POST"
   novalidate
   id="contact-form"
+  aria-label="Contact form"
 >
   <!-- Web3Forms config — replace YOUR_WEB3FORMS_ACCESS_KEY with your actual key from web3forms.com -->
   <input type="hidden" name="access_key" value="YOUR_WEB3FORMS_ACCESS_KEY" />
@@ -16,26 +17,28 @@ import Button from './Button.astro';
   <!-- Honeypot spam guard -->
   <input type="checkbox" name="botcheck" style="display:none" tabindex="-1" aria-hidden="true" />
 
+  <p class="form-required-note" aria-label="All fields are required">All fields required</p>
+
   <div class="form-row">
     <div class="form-field">
-      <label for="cf-name">Full Name</label>
-      <input id="cf-name" type="text" name="name" placeholder="John Smith" required autocomplete="name" />
+      <label for="cf-name">Full Name <span class="req" aria-hidden="true">*</span></label>
+      <input id="cf-name" type="text" name="name" placeholder="John Smith" required autocomplete="name" aria-required="true" />
     </div>
     <div class="form-field">
-      <label for="cf-phone">Phone Number</label>
-      <input id="cf-phone" type="tel" name="phone" placeholder="(631) 555-0100" required autocomplete="tel" />
+      <label for="cf-phone">Phone Number <span class="req" aria-hidden="true">*</span></label>
+      <input id="cf-phone" type="tel" name="phone" placeholder="(631) 555-0100" required autocomplete="tel" aria-required="true" />
     </div>
   </div>
 
   <div class="form-field">
-    <label for="cf-email">Email Address</label>
-    <input id="cf-email" type="email" name="email" placeholder="you@example.com" required autocomplete="email" />
+    <label for="cf-email">Email Address <span class="req" aria-hidden="true">*</span></label>
+    <input id="cf-email" type="email" name="email" placeholder="you@example.com" required autocomplete="email" aria-required="true" />
   </div>
 
   <div class="form-field">
-    <label for="cf-service">Which Service?</label>
+    <label for="cf-service">Which Service? <span class="req" aria-hidden="true">*</span></label>
     <div class="select-wrap">
-      <select id="cf-service" name="service" required>
+      <select id="cf-service" name="service" required aria-required="true">
         <option value="" disabled selected>Select a service…</option>
         <option value="Dump Trucking">Dump Trucking</option>
         <option value="Home Remodeling">Home Remodeling</option>
@@ -45,13 +48,13 @@ import Button from './Button.astro';
   </div>
 
   <div class="form-field">
-    <label for="cf-message">Message</label>
-    <textarea id="cf-message" name="message" rows="5" placeholder="Tell us about your project or request…" required></textarea>
+    <label for="cf-message">Message <span class="req" aria-hidden="true">*</span></label>
+    <textarea id="cf-message" name="message" rows="5" placeholder="Tell us about your project or request…" required aria-required="true"></textarea>
   </div>
 
   <div class="form-footer">
     <Button type="submit" ariaLabel="Send your message">Send Message</Button>
-    <p class="form-status" id="form-status" aria-live="polite" hidden></p>
+    <p class="form-status" id="form-status" role="alert" hidden></p>
   </div>
 </form>
 
@@ -69,7 +72,7 @@ import Button from './Button.astro';
 
       status.hidden = false;
       if (json.success) {
-        status.textContent = 'Message sent — we\'ll get back to you shortly.';
+        status.textContent = 'Message sent. We\'ll get back to you shortly.';
         status.classList.remove('is-error');
         status.classList.add('is-success');
         form.reset();
@@ -94,6 +97,14 @@ import Button from './Button.astro';
     gap: var(--space-lg);
   }
 
+  .form-required-note {
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--c-muted);
+  }
+
   .form-row {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -112,6 +123,11 @@ import Button from './Button.astro';
     letter-spacing: 0.05em;
     text-transform: uppercase;
     color: var(--c-muted);
+  }
+
+  .req {
+    color: var(--c-accent);
+    margin-left: 0.15em;
   }
 
   input,
@@ -140,7 +156,7 @@ import Button from './Button.astro';
   select:focus,
   textarea:focus {
     border-color: var(--c-accent);
-    box-shadow: 0 0 0 3px oklch(35% 0.09 155 / 0.12);
+    box-shadow: 0 0 0 3px color-mix(in oklch, var(--c-accent) 12%, transparent);
   }
 
   textarea {
@@ -185,7 +201,7 @@ import Button from './Button.astro';
   }
 
   .form-status.is-error {
-    color: oklch(50% 0.18 25);
+    color: var(--c-error);
   }
 
   @media (max-width: 540px) {

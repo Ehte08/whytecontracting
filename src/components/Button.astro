@@ -71,7 +71,7 @@ const { href, type = 'button', ariaLabel, class: className, arrow = '→' } = As
 
   .btn:hover {
     transform: scale(1.02);
-    box-shadow: 0 6px 16px -8px oklch(35% 0.09 155 / 0.5);
+    box-shadow: 0 6px 16px -8px color-mix(in oklch, var(--c-accent) 50%, transparent);
   }
 
   .btn:hover::before {
