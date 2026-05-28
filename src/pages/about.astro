@@ -24,8 +24,20 @@ import Button from '../components/Button.astro';
     </div>
   </section>
 
+  <!-- ─── PAGE SECTIONS NAV ─── -->
+  <nav class="page-nav" aria-label="Page sections">
+    <div class="container page-nav-inner">
+      <div class="page-nav-links">
+        <a href="#our-story" class="page-nav-link">Our Story</a>
+        <a href="#mission-vision" class="page-nav-link">Mission &amp; Vision</a>
+        <a href="#values" class="page-nav-link">Values</a>
+      </div>
+      <a href="/contact" class="page-nav-contact">Get in Touch →</a>
+    </div>
+  </nav>
+
   <!-- ─── COMPANY INTRO ─── -->
-  <section class="intro" aria-labelledby="intro-heading">
+  <section class="intro" id="our-story" aria-labelledby="intro-heading">
     <div class="container intro-inner">
       <div class="intro-text">
         <h2 id="intro-heading">Whyte Contracting LLC</h2>
@@ -70,7 +82,7 @@ import Button from '../components/Button.astro';
   </div>
 
   <!-- ─── MISSION & VISION ─── -->
-  <section class="mv" aria-labelledby="mv-heading">
+  <section class="mv" id="mission-vision" aria-labelledby="mv-heading">
     <div class="container">
       <header class="section-header mv-header">
         <h2 id="mv-heading">What drives us</h2>
@@ -101,7 +113,7 @@ import Button from '../components/Button.astro';
   </section>
 
   <!-- ─── VALUES ─── -->
-  <section class="values" aria-labelledby="values-heading">
+  <section class="values" id="values" aria-labelledby="values-heading">
     <div class="container">
       <header class="section-header">
         <h2 id="values-heading">What we stand for</h2>
@@ -136,6 +148,8 @@ import Button from '../components/Button.astro';
       <Button href="/contact" ariaLabel="Go to contact page">Get in Touch</Button>
     </div>
   </section>
+
+  <button class="back-to-top" aria-label="Scroll back to top">↑</button>
 
   <Footer />
 
@@ -225,7 +239,6 @@ import Button from '../components/Button.astro';
     display: flex;
     flex-direction: column;
     gap: var(--space-2xl);
-    padding-top: var(--space-xl);
   }
 
   .stat-block {
@@ -254,7 +267,7 @@ import Button from '../components/Button.astro';
 
   /* ─── Mission / Vision ─── */
   .mv {
-    padding: var(--space-section) 0;
+    padding: clamp(3rem, 5.5vw, 5.5rem) 0;
     background: var(--c-canvas-tinted);
     border-top: 1px solid var(--c-hairline);
     border-bottom: 1px solid var(--c-hairline);
@@ -271,19 +284,8 @@ import Button from '../components/Button.astro';
   }
 
   .mv-card {
-    padding: var(--space-2xl) var(--space-2xl) var(--space-2xl) 0;
+    padding: var(--space-2xl) 0;
     border-top: 2px solid var(--c-hairline);
-    position: relative;
-  }
-
-  .mv-index {
-    display: block;
-    font-size: 0.6875rem;
-    font-weight: 700;
-    letter-spacing: 0.1em;
-    color: var(--c-accent);
-    text-transform: uppercase;
-    margin-bottom: var(--space-sm);
   }
 
   .mv-card h3 {
@@ -330,28 +332,13 @@ import Button from '../components/Button.astro';
     border-right: 1px solid var(--c-hairline);
   }
 
+  .value-tile:not(:first-child) {
+    padding-left: var(--space-2xl);
+  }
+
   .value-tile:last-child {
     border-right: none;
     padding-right: 0;
-  }
-
-  .value-tile:not(:first-child) {
-    padding-left: var(--space-2xl);
-    padding-right: var(--space-2xl);
-  }
-
-  .value-tile:last-child {
-    padding-right: 0;
-  }
-
-  .value-num {
-    display: block;
-    font-size: 0.6875rem;
-    font-weight: 700;
-    letter-spacing: 0.1em;
-    color: var(--c-accent);
-    text-transform: uppercase;
-    margin-bottom: var(--space-md);
   }
 
   .value-name {
@@ -384,8 +371,8 @@ import Button from '../components/Button.astro';
 
   /* ─── Closing CTA ─── */
   .cta {
-    padding: var(--space-section) 0;
-    background: var(--c-canvas);
+    padding: clamp(2.5rem, 4vw, 4.5rem) 0;
+    background: var(--c-canvas-tinted);
     border-top: 3px solid var(--c-accent);
   }
 
@@ -428,6 +415,124 @@ import Button from '../components/Button.astro';
     }
   }
 
+  /* ─── Page Sections Nav ─── */
+  .page-nav {
+    background: var(--c-dark-elevated);
+    border-bottom: 1px solid var(--c-overlay);
+  }
+
+  .page-nav-inner {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: var(--space-sm);
+    padding-bottom: var(--space-sm);
+  }
+
+  .page-nav-links {
+    display: flex;
+    align-items: center;
+  }
+
+  .page-nav-link {
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--c-on-dark-soft);
+    padding: 0.5rem 0.75rem;
+    position: relative;
+    transition: color 0.15s ease-out;
+    white-space: nowrap;
+  }
+
+  .page-nav-link::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0.75rem;
+    right: 0.75rem;
+    height: 2px;
+    background: var(--c-accent-on-dark);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.2s ease-out;
+  }
+
+  .page-nav-link:hover,
+  .page-nav-link.is-active {
+    color: var(--c-on-dark);
+  }
+
+  .page-nav-link:hover::after,
+  .page-nav-link.is-active::after {
+    transform: scaleX(1);
+  }
+
+  .page-nav-link:focus-visible {
+    outline: 2px solid var(--c-accent-on-dark);
+    outline-offset: -2px;
+  }
+
+  .page-nav-contact {
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--c-accent-on-dark);
+    flex-shrink: 0;
+    transition: color 0.15s ease-out;
+  }
+
+  .page-nav-contact:hover {
+    color: var(--c-on-dark);
+  }
+
+  /* ─── Scroll margin for fixed nav ─── */
+  #our-story,
+  #mission-vision,
+  #values {
+    scroll-margin-top: 5rem;
+  }
+
+  /* ─── Back to Top ─── */
+  .back-to-top {
+    position: fixed;
+    bottom: var(--space-xl);
+    right: var(--space-xl);
+    z-index: 90;
+    width: 44px;
+    height: 44px;
+    background: var(--c-dark);
+    color: var(--c-on-dark);
+    border: 1px solid oklch(100% 0 0 / 0.12);
+    font-size: 1rem;
+    font-family: var(--font);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transform: translateY(8px);
+    transition: opacity 0.25s ease-out, transform 0.25s ease-out, background 0.15s ease-out;
+    pointer-events: none;
+  }
+
+  .back-to-top.is-visible {
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: auto;
+  }
+
+  .back-to-top:hover {
+    background: var(--c-accent);
+  }
+
+  .back-to-top:focus-visible {
+    outline: 2px solid var(--c-accent-on-dark);
+    outline-offset: 3px;
+  }
+
   @media (max-width: 680px) {
     .values-grid {
       grid-template-columns: 1fr;
@@ -444,5 +549,63 @@ import Button from '../components/Button.astro';
     .value-tile:last-child {
       border-bottom: none;
     }
+
+    .page-nav-contact {
+      display: none;
+    }
+
+    .page-nav-link {
+      font-size: 0.6875rem;
+      padding: 0.5rem 0.5rem;
+    }
+
+    .back-to-top {
+      bottom: var(--space-lg);
+      right: var(--space-lg);
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .back-to-top {
+      transition: opacity 0.2s ease-out;
+      transform: none;
+    }
+    .back-to-top.is-visible {
+      transform: none;
+    }
   }
 </style>
+
+<script>
+  // Back-to-top button
+  const backBtn = document.querySelector<HTMLButtonElement>('.back-to-top');
+  if (backBtn) {
+    const toggleBack = () => backBtn.classList.toggle('is-visible', window.scrollY > 300);
+    toggleBack();
+    window.addEventListener('scroll', toggleBack, { passive: true });
+    backBtn.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+  }
+
+  // Active section highlighting
+  const navLinks = document.querySelectorAll<HTMLAnchorElement>('.page-nav-link');
+  if (navLinks.length) {
+    const sections = Array.from(navLinks)
+      .map(l => document.querySelector(l.getAttribute('href')!))
+      .filter(Boolean) as Element[];
+
+    const sectionObserver = new IntersectionObserver(
+      entries => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            navLinks.forEach(l =>
+              l.classList.toggle('is-active', l.getAttribute('href') === `#${entry.target.id}`)
+            );
+          }
+        });
+      },
+      { rootMargin: '-15% 0px -75% 0px' }
+    );
+
+    sections.forEach(s => sectionObserver.observe(s));
+  }
+</script>
