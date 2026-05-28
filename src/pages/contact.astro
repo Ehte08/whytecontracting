@@ -1,0 +1,259 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Nav from '../components/Nav.astro';
+import Footer from '../components/Footer.astro';
+import ContactForm from '../components/ContactForm.astro';
+
+const phone     = '(631) 933-0772';
+const phoneHref = 'tel:6319330772';
+const email     = 'whytecontracting22@gmail.com';
+const emailHref = `mailto:${email}`;
+const address   = '40 Audley Ct, Copiague, NY 11726';
+const mapsHref  = 'https://maps.google.com/?q=40+Audley+Ct+Copiague+NY+11726';
+const mapsEmbed = 'https://maps.google.com/maps?q=40+Audley+Ct+Copiague+NY+11726&output=embed';
+---
+
+<Layout
+  title="Contact — Whyte Contracting"
+  description="Reach Whyte Contracting LLC in Copiague, NY. Call, email, or fill out our form for dump trucking and home remodeling inquiries."
+>
+
+  <Nav currentPath={Astro.url.pathname} />
+
+  <!-- ─── PAGE HEADER ─── -->
+  <section class="page-header" aria-label="Contact Whyte Contracting">
+    <div class="container page-header-inner">
+      <p class="label label--green">Contact</p>
+      <h1 class="page-headline">Let's get to work.</h1>
+      <p class="page-sub">
+        Fill out the form or reach us directly — we respond the same day.
+      </p>
+    </div>
+  </section>
+
+  <!-- ─── MAIN CONTENT ─── -->
+  <section class="contact-section" aria-label="Contact form and information">
+    <div class="container contact-grid">
+
+      <!-- Left: Form -->
+      <div class="form-col">
+        <h2 class="col-heading">Send a message</h2>
+        <ContactForm />
+      </div>
+
+      <!-- Right: Info -->
+      <aside class="info-col" aria-label="Contact information">
+        <h2 class="col-heading">Reach us directly</h2>
+
+        <ul class="info-list" role="list">
+          <li class="info-item">
+            <span class="info-label">Phone</span>
+            <a href={phoneHref} class="info-value info-link" aria-label={`Call us at ${phone}`}>
+              {phone}
+            </a>
+          </li>
+          <li class="info-item">
+            <span class="info-label">Email</span>
+            <a href={emailHref} class="info-value info-link" aria-label={`Email us at ${email}`}>
+              {email}
+            </a>
+          </li>
+          <li class="info-item">
+            <span class="info-label">Address</span>
+            <address class="info-value">
+              {address}
+            </address>
+          </li>
+        </ul>
+
+        <a
+          href={mapsHref}
+          target="_blank"
+          rel="noopener noreferrer"
+          class="maps-link"
+          aria-label="View our address on Google Maps (opens in new tab)"
+        >
+          View on Google Maps ↗
+        </a>
+
+        <div class="map-embed" aria-label="Map showing Whyte Contracting location">
+          <iframe
+            src={mapsEmbed}
+            width="100%"
+            height="280"
+            style="border:0;"
+            allowfullscreen={false}
+            loading="lazy"
+            referrerpolicy="no-referrer-when-downgrade"
+            title="Whyte Contracting location map"
+          ></iframe>
+        </div>
+      </aside>
+
+    </div>
+  </section>
+
+  <Footer />
+
+</Layout>
+
+<style>
+  .container {
+    max-width: var(--max-w);
+    margin: 0 auto;
+    padding: 0 var(--gutter);
+  }
+
+  .label {
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    margin-bottom: var(--space-sm);
+  }
+
+  .label--green { color: var(--c-accent-on-dark); }
+
+  /* ─── Page Header ─── */
+  .page-header {
+    background: var(--c-dark);
+    padding: calc(var(--space-section) + 4rem) 0 var(--space-section);
+  }
+
+  .page-header-inner {
+    max-width: 700px;
+  }
+
+  .page-headline {
+    font-size: clamp(2.75rem, 6.5vw, 5rem);
+    font-weight: 700;
+    line-height: 0.97;
+    letter-spacing: -0.03em;
+    color: var(--c-on-dark);
+    margin-bottom: var(--space-lg);
+    margin-top: var(--space-xs);
+  }
+
+  .page-sub {
+    font-size: clamp(0.95rem, 1.5vw, 1.1rem);
+    color: var(--c-on-dark-soft);
+    max-width: 48ch;
+    line-height: 1.65;
+  }
+
+  /* ─── Contact Section ─── */
+  .contact-section {
+    padding: var(--space-section) 0;
+    background: var(--c-canvas);
+  }
+
+  .contact-grid {
+    display: grid;
+    grid-template-columns: 1fr 380px;
+    gap: clamp(3rem, 6vw, 6rem);
+    align-items: start;
+  }
+
+  .col-heading {
+    font-size: 1.125rem;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+    color: var(--c-ink);
+    margin-bottom: var(--space-xl);
+    padding-bottom: var(--space-lg);
+    border-bottom: 2px solid var(--c-ink);
+  }
+
+  /* ─── Info Col ─── */
+  .info-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-xl);
+    margin-bottom: var(--space-xl);
+  }
+
+  .info-item {
+    display: flex;
+    flex-direction: column;
+    gap: 0.3rem;
+  }
+
+  .info-label {
+    font-size: 0.6875rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--c-muted);
+  }
+
+  .info-value {
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--c-ink);
+    font-style: normal;
+  }
+
+  .info-link {
+    transition: color 0.15s ease-out;
+    text-decoration: underline;
+    text-underline-offset: 3px;
+    text-decoration-color: var(--c-hairline);
+  }
+
+  .info-link:hover,
+  .info-link:focus-visible {
+    color: var(--c-accent);
+    text-decoration-color: var(--c-accent);
+  }
+
+  .info-link:focus-visible {
+    outline: 2px solid var(--c-accent);
+    outline-offset: 3px;
+    border-radius: 1px;
+  }
+
+  .maps-link {
+    display: inline-block;
+    font-size: 0.8125rem;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: var(--c-accent);
+    text-decoration: none;
+    margin-bottom: var(--space-xl);
+    transition: color 0.15s ease-out;
+  }
+
+  .maps-link:hover {
+    color: var(--c-accent-hover);
+  }
+
+  .maps-link:focus-visible {
+    outline: 2px solid var(--c-accent);
+    outline-offset: 3px;
+  }
+
+  .map-embed {
+    overflow: hidden;
+    border: 1px solid var(--c-hairline);
+    line-height: 0;
+  }
+
+  .map-embed iframe {
+    display: block;
+    width: 100%;
+    filter: grayscale(20%);
+  }
+
+  /* ─── Responsive ─── */
+  @media (max-width: 900px) {
+    .contact-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .info-col {
+      order: -1;
+    }
+  }
+</style>

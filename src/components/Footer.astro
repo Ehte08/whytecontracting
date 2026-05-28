@@ -1,0 +1,67 @@
+---
+---
+
+<footer class="footer" role="contentinfo">
+  <div class="container footer-inner">
+    <div class="footer-left">
+      <span class="footer-brand">Whyte Contracting</span>
+      <span class="footer-motto">Geared for success.</span>
+    </div>
+    <span class="footer-copy">&copy; {new Date().getFullYear()}. All rights reserved.</span>
+  </div>
+</footer>
+
+<style>
+  .footer {
+    background: var(--c-dark-elevated);
+    padding: var(--space-xl) 0;
+    border-top: 1px solid oklch(100% 0 0 / 0.06);
+  }
+
+  .container {
+    max-width: var(--max-w);
+    margin: 0 auto;
+    padding: 0 var(--gutter);
+  }
+
+  .footer-inner {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: var(--space-sm);
+  }
+
+  .footer-left {
+    display: flex;
+    flex-direction: column;
+    gap: 0.2rem;
+  }
+
+  .footer-brand {
+    font-size: 0.875rem;
+    font-weight: 700;
+    color: var(--c-on-dark);
+    letter-spacing: 0.02em;
+  }
+
+  .footer-motto {
+    font-size: 0.75rem;
+    color: var(--c-accent-on-dark);
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    font-weight: 700;
+  }
+
+  .footer-copy {
+    font-size: 0.8125rem;
+    color: var(--c-on-dark-soft);
+  }
+
+  @media (max-width: 680px) {
+    .footer-inner {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+  }
+</style>

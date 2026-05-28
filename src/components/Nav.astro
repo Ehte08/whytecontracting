@@ -1,0 +1,188 @@
+---
+const { currentPath = '/' } = Astro.props;
+
+const phone     = '(631) 933-0772';
+const phoneHref = 'tel:6319330772';
+
+const links = [
+  { label: 'Home',    href: '/'        },
+  { label: 'About',   href: '/about'   },
+  { label: 'Contact', href: '/contact' },
+];
+---
+
+<header class="nav" id="nav" role="banner">
+  <div class="nav-inner">
+    <a href="/" class="logo" aria-label="Whyte Contracting — home">
+      <span class="logo-name">Whyte</span>
+      <span class="logo-word">Contracting</span>
+    </a>
+
+    <nav class="nav-links" aria-label="Site navigation">
+      {links.map(({ label, href }) => (
+        <a
+          href={href}
+          class:list={['nav-link', { 'is-active': currentPath === href || (href !== '/' && currentPath.startsWith(href)) }]}
+          aria-current={currentPath === href ? 'page' : undefined}
+        >
+          {label}
+        </a>
+      ))}
+    </nav>
+
+    <a href={phoneHref} class="nav-call" aria-label={`Call us at ${phone}`}>Call Now</a>
+  </div>
+</header>
+
+<script>
+  const nav = document.getElementById('nav')!;
+
+  const scrollObserver = new IntersectionObserver(
+    ([entry]) => nav.classList.toggle('is-solid', entry.boundingClientRect.top < 0),
+    { threshold: [0], rootMargin: '-1px 0px 0px 0px' }
+  );
+
+  /* Observe a 1px sentinel at the very top of the page */
+  const sentinel = document.createElement('div');
+  sentinel.style.cssText = 'position:absolute;top:0;left:0;width:1px;height:1px;pointer-events:none';
+  document.body.prepend(sentinel);
+  scrollObserver.observe(sentinel);
+
+  /* On non-hero pages the nav starts solid immediately */
+  if (window.scrollY > 10) nav.classList.add('is-solid');
+</script>
+
+<style>
+  .nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 100;
+    transition: background 0.3s ease-out, box-shadow 0.3s ease-out;
+  }
+
+  .nav.is-solid {
+    background: var(--c-dark);
+    box-shadow: 0 1px 0 oklch(100% 0 0 / 0.07);
+  }
+
+  .nav-inner {
+    max-width: var(--max-w);
+    margin: 0 auto;
+    padding: 1.1rem var(--gutter);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1.5rem;
+  }
+
+  .logo {
+    display: flex;
+    align-items: baseline;
+    gap: 0.45rem;
+    color: var(--c-on-dark);
+    flex-shrink: 0;
+  }
+
+  .logo-name {
+    font-size: 1.125rem;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+  }
+
+  .logo-word {
+    font-size: 0.8125rem;
+    font-weight: 400;
+    color: var(--c-on-dark-soft);
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+  }
+
+  .nav-links {
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+  }
+
+  .nav-link {
+    font-size: 0.8125rem;
+    font-weight: 700;
+    color: var(--c-on-dark-soft);
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    padding: 0.35rem 0.65rem;
+    position: relative;
+    transition: color 0.15s ease-out;
+  }
+
+  .nav-link::after {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    left: 0.65rem;
+    right: 0.65rem;
+    height: 2px;
+    background: var(--c-accent-on-dark);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.2s ease-out;
+  }
+
+  .nav-link:hover {
+    color: var(--c-on-dark);
+  }
+
+  .nav-link:hover::after {
+    transform: scaleX(1);
+  }
+
+  .nav-link.is-active {
+    color: var(--c-on-dark);
+  }
+
+  .nav-link.is-active::after {
+    transform: scaleX(1);
+  }
+
+  .nav-call {
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--c-on-dark);
+    background: var(--c-accent);
+    padding: 0.5rem 1.1rem;
+    flex-shrink: 0;
+    transition: background 0.2s ease-out, transform 0.2s ease-out;
+  }
+
+  .nav-call:hover {
+    background: var(--c-accent-hover);
+    transform: scale(1.03);
+  }
+
+  @media (max-width: 680px) {
+    .nav-inner {
+      flex-wrap: wrap;
+      row-gap: 0.5rem;
+      padding-top: 0.75rem;
+      padding-bottom: 0.75rem;
+    }
+
+    .nav-links {
+      order: 3;
+      width: 100%;
+      gap: 0;
+    }
+
+    .nav-link {
+      font-size: 0.75rem;
+      padding: 0.25rem 0.5rem;
+    }
+
+    .nav-call {
+      font-size: 0.8125rem;
+    }
+  }
+</style>

@@ -1,0 +1,196 @@
+---
+import Button from './Button.astro';
+---
+
+<form
+  class="contact-form"
+  action="https://api.web3forms.com/submit"
+  method="POST"
+  novalidate
+  id="contact-form"
+>
+  <!-- Web3Forms config — replace YOUR_WEB3FORMS_ACCESS_KEY with your actual key from web3forms.com -->
+  <input type="hidden" name="access_key" value="YOUR_WEB3FORMS_ACCESS_KEY" />
+  <input type="hidden" name="subject" value="New inquiry — Whyte Contracting" />
+  <input type="hidden" name="redirect" value="false" />
+  <!-- Honeypot spam guard -->
+  <input type="checkbox" name="botcheck" style="display:none" tabindex="-1" aria-hidden="true" />
+
+  <div class="form-row">
+    <div class="form-field">
+      <label for="cf-name">Full Name</label>
+      <input id="cf-name" type="text" name="name" placeholder="John Smith" required autocomplete="name" />
+    </div>
+    <div class="form-field">
+      <label for="cf-phone">Phone Number</label>
+      <input id="cf-phone" type="tel" name="phone" placeholder="(631) 555-0100" required autocomplete="tel" />
+    </div>
+  </div>
+
+  <div class="form-field">
+    <label for="cf-email">Email Address</label>
+    <input id="cf-email" type="email" name="email" placeholder="you@example.com" required autocomplete="email" />
+  </div>
+
+  <div class="form-field">
+    <label for="cf-service">Which Service?</label>
+    <div class="select-wrap">
+      <select id="cf-service" name="service" required>
+        <option value="" disabled selected>Select a service…</option>
+        <option value="Dump Trucking">Dump Trucking</option>
+        <option value="Home Remodeling">Home Remodeling</option>
+      </select>
+      <span class="select-icon" aria-hidden="true">▾</span>
+    </div>
+  </div>
+
+  <div class="form-field">
+    <label for="cf-message">Message</label>
+    <textarea id="cf-message" name="message" rows="5" placeholder="Tell us about your project or request…" required></textarea>
+  </div>
+
+  <div class="form-footer">
+    <Button type="submit" ariaLabel="Send your message">Send Message</Button>
+    <p class="form-status" id="form-status" aria-live="polite" hidden></p>
+  </div>
+</form>
+
+<script>
+  const form   = document.getElementById('contact-form') as HTMLFormElement;
+  const status = document.getElementById('form-status') as HTMLParagraphElement;
+
+  form?.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const data = new FormData(form);
+
+    try {
+      const res  = await fetch('https://api.web3forms.com/submit', { method: 'POST', body: data });
+      const json = await res.json();
+
+      status.hidden = false;
+      if (json.success) {
+        status.textContent = 'Message sent — we\'ll get back to you shortly.';
+        status.classList.remove('is-error');
+        status.classList.add('is-success');
+        form.reset();
+      } else {
+        status.textContent = 'Something went wrong. Please call us at (631) 933-0772.';
+        status.classList.remove('is-success');
+        status.classList.add('is-error');
+      }
+    } catch {
+      status.hidden = false;
+      status.textContent = 'Could not send. Please call us at (631) 933-0772.';
+      status.classList.remove('is-success');
+      status.classList.add('is-error');
+    }
+  });
+</script>
+
+<style>
+  .contact-form {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-lg);
+  }
+
+  .form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-lg);
+  }
+
+  .form-field {
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+  }
+
+  label {
+    font-size: 0.8125rem;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    color: var(--c-muted);
+  }
+
+  input,
+  select,
+  textarea {
+    font-family: var(--font);
+    font-size: 0.9375rem;
+    color: var(--c-ink);
+    background: var(--c-canvas);
+    border: 1px solid var(--c-hairline);
+    padding: 0.75rem 1rem;
+    width: 100%;
+    outline: none;
+    transition: border-color 0.15s ease-out, box-shadow 0.15s ease-out;
+    appearance: none;
+    -webkit-appearance: none;
+    border-radius: 0;
+  }
+
+  input::placeholder,
+  textarea::placeholder {
+    color: var(--c-muted);
+  }
+
+  input:focus,
+  select:focus,
+  textarea:focus {
+    border-color: var(--c-accent);
+    box-shadow: 0 0 0 3px oklch(35% 0.09 155 / 0.12);
+  }
+
+  textarea {
+    resize: vertical;
+    min-height: 130px;
+  }
+
+  .select-wrap {
+    position: relative;
+  }
+
+  .select-wrap select {
+    cursor: pointer;
+    padding-right: 2.5rem;
+  }
+
+  .select-icon {
+    position: absolute;
+    right: 1rem;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--c-muted);
+    pointer-events: none;
+    font-size: 0.75rem;
+  }
+
+  .form-footer {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-md);
+    align-items: flex-start;
+  }
+
+  .form-status {
+    font-size: 0.875rem;
+    font-weight: 700;
+    letter-spacing: 0.02em;
+  }
+
+  .form-status.is-success {
+    color: var(--c-accent);
+  }
+
+  .form-status.is-error {
+    color: oklch(50% 0.18 25);
+  }
+
+  @media (max-width: 540px) {
+    .form-row {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

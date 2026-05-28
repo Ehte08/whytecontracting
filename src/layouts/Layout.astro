@@ -1,0 +1,93 @@
+---
+import { ViewTransitions } from 'astro:transitions';
+const { title = 'Whyte Contracting', description = 'Home remodeling and dump trucking services you can rely on.' } = Astro.props;
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content={description} />
+    <title>{title}</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Overpass:wght@400;700&display=swap"
+      rel="stylesheet"
+    />
+    <ViewTransitions />
+  </head>
+  <body>
+    <slot />
+  </body>
+</html>
+
+<style is:global>
+  /* ─── Design Tokens ─── */
+  :root {
+    --c-dark:          oklch(17% 0.025 250);
+    --c-dark-elevated: oklch(22% 0.02 250);
+    --c-canvas:        oklch(97% 0.008 90);
+    --c-accent:        oklch(35% 0.09 155);
+    --c-accent-hover:  oklch(30% 0.08 155);
+    --c-accent-on-dark: oklch(62% 0.14 155);
+    --c-ink:           oklch(18% 0.015 250);
+    --c-body:          oklch(38% 0.012 250);
+    --c-muted:         oklch(58% 0.01 250);
+    --c-hairline:      oklch(88% 0.006 90);
+    --c-on-dark:       oklch(94% 0.006 90);
+    --c-on-dark-soft:  oklch(72% 0.008 90);
+
+    --font: 'Overpass', system-ui, -apple-system, sans-serif;
+
+    --gutter: clamp(1.5rem, 5vw, 4rem);
+    --max-w:  1280px;
+
+    --space-xs:      0.5rem;
+    --space-sm:      0.75rem;
+    --space-md:      1rem;
+    --space-lg:      1.5rem;
+    --space-xl:      2rem;
+    --space-2xl:     3rem;
+    --space-section: clamp(4rem, 8vw, 7rem);
+  }
+
+  /* ─── Reset ─── */
+  *, *::before, *::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+
+  html {
+    scroll-behavior: smooth;
+    -webkit-text-size-adjust: 100%;
+  }
+
+  body {
+    font-family: var(--font);
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.65;
+    color: var(--c-body);
+    background-color: var(--c-canvas);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  img {
+    display: block;
+    max-width: 100%;
+    height: auto;
+  }
+
+  a {
+    color: inherit;
+    text-decoration: none;
+  }
+
+  button {
+    font-family: inherit;
+  }
+</style>

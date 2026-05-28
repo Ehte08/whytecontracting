@@ -1,0 +1,427 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Nav from '../components/Nav.astro';
+import Footer from '../components/Footer.astro';
+import Button from '../components/Button.astro';
+---
+
+<Layout
+  title="About — Whyte Contracting"
+  description="Established in 2022, Whyte Contracting LLC is a heavy-haul dump truck and residential construction firm in Copiague, NY. Our mission, vision, and values."
+>
+
+  <Nav currentPath={Astro.url.pathname} />
+
+  <!-- ─── PAGE HEADER ─── -->
+  <section class="page-header" aria-label="About Whyte Contracting">
+    <div class="container page-header-inner">
+      <p class="label label--green">About Us</p>
+      <h1 class="page-headline">Geared for success<br />since 2022.</h1>
+      <p class="page-sub">
+        A heavy-haul dump truck and residential construction firm built on honesty,
+        reliability, and work that speaks for itself.
+      </p>
+    </div>
+  </section>
+
+  <!-- ─── COMPANY INTRO ─── -->
+  <section class="intro" aria-labelledby="intro-heading">
+    <div class="container intro-inner">
+      <div class="intro-text">
+        <p class="label label--dark">Who We Are</p>
+        <h2 id="intro-heading">Whyte Contracting LLC</h2>
+        <p>
+          Founded in 2022 and headquartered in Copiague, NY, Whyte Contracting LLC specializes
+          in heavy-haul dump trucking and residential construction across Long Island. We serve
+          homeowners, contractors, and developers who demand quality, punctuality, and
+          straight talk — no runaround.
+        </p>
+        <p>
+          Whether we're hauling materials to a job site, clearing debris, or delivering a
+          full home remodel, our standard doesn't change: best-in-class customer service,
+          quality workmanship, and maximum productivity on every project.
+        </p>
+      </div>
+      <div class="intro-stat-col">
+        <div class="stat-block">
+          <span class="stat-number">2022</span>
+          <span class="stat-label">Established</span>
+        </div>
+        <div class="stat-block">
+          <span class="stat-number">LI</span>
+          <span class="stat-label">Long Island based</span>
+        </div>
+        <div class="stat-block">
+          <span class="stat-number">2</span>
+          <span class="stat-label">Core services</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── MISSION & VISION ─── -->
+  <section class="mv" aria-labelledby="mv-heading">
+    <div class="container">
+      <p class="label label--dark" id="mv-heading">What drives us</p>
+      <div class="mv-grid">
+
+        <article class="mv-card" aria-labelledby="mission-heading">
+          <span class="mv-index" aria-hidden="true">01</span>
+          <h3 id="mission-heading">Mission</h3>
+          <p>
+            To provide quality services to our clients that will help their companies
+            prosper and grow — delivered with honesty, efficiency, and care.
+          </p>
+        </article>
+
+        <article class="mv-card" aria-labelledby="vision-heading">
+          <span class="mv-index" aria-hidden="true">02</span>
+          <h3 id="vision-heading">Vision</h3>
+          <p>
+            To be the most trusted and reliable heavy-haul transportation provider in
+            the region — consistently delivering efficient and safe dumping services and
+            residential remodeling, prioritizing customer satisfaction, and contributing
+            to the success of construction projects through innovative solutions and a
+            commitment to environmental responsibility.
+          </p>
+        </article>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── VALUES ─── -->
+  <section class="values" aria-labelledby="values-heading">
+    <div class="container">
+      <header class="section-header">
+        <p class="label label--dark">Our Values</p>
+        <h2 id="values-heading">What we stand for</h2>
+      </header>
+      <div class="values-grid">
+
+        <article class="value-tile" aria-label="Integrity">
+          <span class="value-num" aria-hidden="true">01</span>
+          <h3 class="value-name">Integrity</h3>
+          <p class="value-desc">We say what we mean and do what we say — every time, no exceptions.</p>
+        </article>
+
+        <article class="value-tile" aria-label="Loyalty">
+          <span class="value-num" aria-hidden="true">02</span>
+          <h3 class="value-name">Loyalty</h3>
+          <p class="value-desc">Our clients and crews can count on us to show up and follow through.</p>
+        </article>
+
+        <article class="value-tile" aria-label="Respect">
+          <span class="value-num" aria-hidden="true">03</span>
+          <h3 class="value-name">Respect</h3>
+          <p class="value-desc">We treat every property, every client, and every job site with care.</p>
+        </article>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── CLOSING CTA ─── -->
+  <section class="cta" aria-labelledby="cta-heading">
+    <div class="container cta-inner">
+      <p class="label label--green">Work With Us</p>
+      <h2 id="cta-heading" class="cta-headline">Ready to get to work?</h2>
+      <p class="cta-sub">Reach out and we'll get back to you the same day.</p>
+      <Button href="/contact" ariaLabel="Go to contact page">Get in Touch</Button>
+    </div>
+  </section>
+
+  <Footer />
+
+</Layout>
+
+<style>
+  .container {
+    max-width: var(--max-w);
+    margin: 0 auto;
+    padding: 0 var(--gutter);
+  }
+
+  .label {
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    margin-bottom: var(--space-sm);
+  }
+
+  .label--dark  { color: var(--c-muted); }
+  .label--green { color: var(--c-accent-on-dark); }
+
+  /* ─── Page Header ─── */
+  .page-header {
+    background: var(--c-dark);
+    padding: calc(var(--space-section) + 4rem) 0 var(--space-section);
+  }
+
+  .page-header-inner {
+    max-width: 820px;
+  }
+
+  .page-headline {
+    font-size: clamp(3rem, 7vw, 5.5rem);
+    font-weight: 700;
+    line-height: 0.97;
+    letter-spacing: -0.03em;
+    color: var(--c-on-dark);
+    margin-bottom: var(--space-lg);
+    margin-top: var(--space-xs);
+  }
+
+  .page-sub {
+    font-size: clamp(0.95rem, 1.5vw, 1.1rem);
+    color: var(--c-on-dark-soft);
+    max-width: 52ch;
+    line-height: 1.65;
+  }
+
+  /* ─── Intro ─── */
+  .intro {
+    padding: var(--space-section) 0;
+    background: var(--c-canvas);
+  }
+
+  .intro-inner {
+    display: grid;
+    grid-template-columns: 1fr 280px;
+    gap: clamp(3rem, 6vw, 6rem);
+    align-items: start;
+  }
+
+  .intro-text h2 {
+    font-size: clamp(1.75rem, 3vw, 2.5rem);
+    font-weight: 700;
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+    color: var(--c-ink);
+    margin-bottom: var(--space-lg);
+    margin-top: var(--space-xs);
+  }
+
+  .intro-text p {
+    font-size: 1rem;
+    color: var(--c-body);
+    line-height: 1.7;
+    max-width: 60ch;
+  }
+
+  .intro-text p + p {
+    margin-top: var(--space-lg);
+  }
+
+  .intro-stat-col {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2xl);
+    padding-top: var(--space-xl);
+  }
+
+  .stat-block {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+    border-left: 3px solid var(--c-accent);
+    padding-left: var(--space-lg);
+  }
+
+  .stat-number {
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--c-ink);
+    letter-spacing: -0.03em;
+    line-height: 1;
+  }
+
+  .stat-label {
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--c-muted);
+  }
+
+  /* ─── Mission / Vision ─── */
+  .mv {
+    padding: var(--space-section) 0;
+    background: oklch(94% 0.01 90);
+    border-top: 1px solid var(--c-hairline);
+    border-bottom: 1px solid var(--c-hairline);
+  }
+
+  .mv > .container > .label {
+    margin-bottom: clamp(2rem, 4vw, 3.5rem);
+  }
+
+  .mv-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: clamp(2rem, 4vw, 4rem);
+  }
+
+  .mv-card {
+    padding: var(--space-2xl) var(--space-2xl) var(--space-2xl) 0;
+    border-top: 2px solid var(--c-hairline);
+    position: relative;
+  }
+
+  .mv-index {
+    display: block;
+    font-size: 0.6875rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    color: var(--c-accent);
+    text-transform: uppercase;
+    margin-bottom: var(--space-sm);
+  }
+
+  .mv-card h3 {
+    font-size: clamp(1.25rem, 2vw, 1.75rem);
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    color: var(--c-ink);
+    margin-bottom: var(--space-lg);
+  }
+
+  .mv-card p {
+    font-size: 0.9375rem;
+    color: var(--c-body);
+    line-height: 1.7;
+  }
+
+  /* ─── Values ─── */
+  .values {
+    padding: var(--space-section) 0;
+    background: var(--c-canvas);
+  }
+
+  .section-header {
+    margin-bottom: clamp(2.5rem, 5vw, 4rem);
+  }
+
+  .section-header h2 {
+    font-size: clamp(1.75rem, 3.5vw, 2.75rem);
+    font-weight: 700;
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+    color: var(--c-ink);
+  }
+
+  .values-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0;
+    border-top: 2px solid var(--c-ink);
+  }
+
+  .value-tile {
+    padding: var(--space-2xl) var(--space-2xl) var(--space-2xl) 0;
+    border-right: 1px solid var(--c-hairline);
+  }
+
+  .value-tile:last-child {
+    border-right: none;
+    padding-right: 0;
+  }
+
+  .value-tile:not(:first-child) {
+    padding-left: var(--space-2xl);
+    padding-right: var(--space-2xl);
+  }
+
+  .value-tile:last-child {
+    padding-right: 0;
+  }
+
+  .value-num {
+    display: block;
+    font-size: 0.6875rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    color: var(--c-accent);
+    text-transform: uppercase;
+    margin-bottom: var(--space-md);
+  }
+
+  .value-name {
+    font-size: clamp(1.5rem, 2.5vw, 2rem);
+    font-weight: 700;
+    letter-spacing: -0.025em;
+    color: var(--c-ink);
+    margin-bottom: var(--space-md);
+  }
+
+  .value-desc {
+    font-size: 0.9375rem;
+    color: var(--c-body);
+    line-height: 1.65;
+    max-width: 30ch;
+  }
+
+  /* ─── Closing CTA ─── */
+  .cta {
+    padding: var(--space-section) 0;
+    background: var(--c-dark);
+  }
+
+  .cta-inner {
+    max-width: 640px;
+  }
+
+  .cta-headline {
+    font-size: clamp(2rem, 4vw, 3.25rem);
+    font-weight: 700;
+    line-height: 1.05;
+    letter-spacing: -0.025em;
+    color: var(--c-on-dark);
+    margin-bottom: var(--space-md);
+    margin-top: var(--space-xs);
+  }
+
+  .cta-sub {
+    font-size: 1rem;
+    color: var(--c-on-dark-soft);
+    margin-bottom: var(--space-2xl);
+    max-width: 42ch;
+  }
+
+  /* ─── Responsive ─── */
+  @media (max-width: 820px) {
+    .intro-inner {
+      grid-template-columns: 1fr;
+    }
+
+    .intro-stat-col {
+      flex-direction: row;
+      flex-wrap: wrap;
+      padding-top: 0;
+      gap: var(--space-xl);
+    }
+
+    .mv-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  @media (max-width: 680px) {
+    .values-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .value-tile,
+    .value-tile:not(:first-child),
+    .value-tile:last-child {
+      border-right: none;
+      border-bottom: 1px solid var(--c-hairline);
+      padding: var(--space-xl) 0;
+    }
+
+    .value-tile:last-child {
+      border-bottom: none;
+    }
+  }
+</style>
